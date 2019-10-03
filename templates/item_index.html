@@ -1,0 +1,31 @@
+<!-- templates/playlists_index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Playlists</h1>
+
+<!-- <a href='/playlists/new'>New item</a> -->
+<div class='row'>
+    {% for item in playlists %}
+    <div class='col-md-3'>
+        <div class="card">
+            <div class="card-body">
+                {% if item.title == "" %}
+                <h2><a href='/items/{{ item._id }}'>No Title Given</a></h2>
+                {% else %}
+                <h2><a href='/items/{{ item._id }}'>{{ item.title }}</a></h2>
+                {% endif %}
+                <small>{{ item.description }}</small>
+                <small>{{ item.ratings }}</small>
+                <!-- <br><small>{{ item.videos }}</small> 
+                    <div class="form-group">
+                        <form method='POST' action='/items/{{ item._id }}/delete'>
+                            <button type='submit'>Delete</button>
+                        </form>
+                    </div> -->
+            </div> <!-- end card body -->
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+    {% endfor %}
+</div>
+{% endblock %}
