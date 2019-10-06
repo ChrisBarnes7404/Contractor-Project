@@ -18,8 +18,7 @@
     <!-- Price-->
     <div class='form-group'>
         <label for='price'>Price</label><br>
-        <input type="number" class="currency" min="0.00" max="10000.00" step="0.01" name='price' value='{{ item.price }}' />
-        <!-- <input class='form-control' id='price' type='text' name='ratings' value='{{ item.price }}' /> -->
+        <input class="form-control" id='price' type="number" min="0.00" max="10000.00" step="0.01" name='price' value='{{ item.price }}' />
     </div>
 
     <!-- DESCRIPTION
@@ -33,7 +32,10 @@
     <!-- RATINGS -->
     <div class='form-group'>
         <label for='ratings'>Ratings</label>
-        <select class='form-control' id='ratings' name="ratings" value='{{ item.ratings }}'>
+        <select class='form-control' id='ratings' name="ratings">
+            {% if item.ratings %}
+                <option value='{{ item.ratings }}'>Current {{ item.ratings }}</option>
+            {% endif %}
             <option value="☆☆☆☆☆ 0">☆☆☆☆☆ 0</option>
             <option value="⭐☆☆☆☆ 1">⭐☆☆☆☆ 1</option>
             <option value="⭐⭐☆☆☆ 2">⭐⭐☆☆☆ 2</option>

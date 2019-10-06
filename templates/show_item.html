@@ -6,29 +6,27 @@
 <div class='row'>
     <div class='col-sm-6 col-sm-offset-3'>
         <h1>{{ item.title }}</h1>
-        {% if item.created_at %}
-            <p class='text-muted'>Created on {{ item.created_at.strftime('%A, %d %B, %Y') }}
-            at {{ item.created_at.strftime('%I:%M %p') }}</p>
-        {% endif %}
-        <p>{{ item.price }}</p>
-        <small>{{ item.ratings }}</small>
+        <p>$ {{ item.price }}</p>
         <h2>{{ item.description }}</h2>
+        <small>{{ item.ratings }}</small>
         <!-- {% for video in item.videos %}
         <div class="card">
             <div class="card-body">
                 <iframe width="420" height="315" src="{{ video }}"></iframe>
             </div>
         </div>
-        {% endfor %} -->
-        <div class="form-group">
-            <button class='btn btn-primary'><a style="color: white" href='/items/{{ item._id }}/edit'>Edit</a></button>
-        </div>
+        {% endfor %} -->            
         <form method='POST' action='/items/{{ item._id }}/delete'>
             <input type='hidden' name='_method' value='DELETE'>
             <button class='btn btn-primary' type='submit'>Delete</button>
         </form>
-        <hr>
+        <button class='btn btn-primary'><a style="color: white" href='/items/{{ item._id }}/edit'>Edit</a></button>
 
+        <hr>
+        {% if item.created_at %}
+        <p class='text-muted'>Created on {{ item.created_at.strftime('%A, %d %B, %Y') }}
+            at {{ item.created_at.strftime('%I:%M %p') }}</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

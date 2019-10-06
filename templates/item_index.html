@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Display of items</h1>
+<h1>Display of available items</h1>
 
 <!-- <a href='/new/item'>New item</a>  -->
 <div class='row'>
@@ -11,12 +11,12 @@
         <div class="card">
             <div class="card-body">
                 {% if item.title == "" %}
-                <h2><a href='/items/{{ item._id }}'>No Title Given</a></h2>
+                    <h2><a href='/items/{{ item._id }}'>No Title Given</a></h2>
                 {% else %}
-                <h2><a href='/items/{{ item._id }}'>{{ item.title }}</a></h2>
+                    <h2><a href='/items/{{ item._id }}'>{{ item.title }}</a></h2>
                 {% endif %}
-                <small>{{ item.price }}</small>
-                <small>{{ item.description }}</small>
+                <small>$ {{ item.price }}</small><br>
+                <small>{{ item.description }}</small><br>
                 <small>{{ item.ratings }}</small>
                 <!-- <br><small>{{ item.videos }}</small> 
                     <div class="form-group">

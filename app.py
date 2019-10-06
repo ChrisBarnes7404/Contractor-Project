@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_user import login_required, UserManager, userMixin
+#from flask_user import login_required, UserManager, UserMixin
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
+# pymongo settings
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Contractor_Shopping')
 client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
@@ -16,8 +19,7 @@ app = Flask(__name__)
 # INDEX
 @app.route('/')
 def items_index():
-    """Return homepage."""
-    """Show all items."""
+    """Show all items via the Home page which is accessible to anyone."""
     return render_template('item_index.html', items=items.find())
     #return render_template('index.html')
 
@@ -102,4 +104,4 @@ def comments_delete(comment_id):
     return redirect(url_for('show_item', item_id=comment.get('item_id')))
 
 if __name__ == '__main__':
-  app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
+  app.run(host='0.0.0.0', port=os.environ.get('PORT', 5000), debug=True)
