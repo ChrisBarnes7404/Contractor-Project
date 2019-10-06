@@ -15,6 +15,7 @@
                 {% else %}
                 <h2><a href='/items/{{ item._id }}'>{{ item.title }}</a></h2>
                 {% endif %}
+                <small>{{ item.price }}</small>
                 <small>{{ item.description }}</small>
                 <small>{{ item.ratings }}</small>
                 <!-- <br><small>{{ item.videos }}</small> 

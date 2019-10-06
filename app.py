@@ -58,8 +58,9 @@ def items_submit():
         'description': request.form.get('description'),
         #'videos': request.form.get('videos').split(),
         'created_at': datetime.now(),
-        'ratings': request.form.get('ratings')
-    }
+        'ratings': request.form.get('ratings'),
+        'price': request.form.get('price')
+        }
     print(item)
     item_id = items.insert_one(item).inserted_id
     return redirect(url_for('show_item', item_id=item_id))
