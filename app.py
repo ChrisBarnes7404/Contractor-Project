@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_user import login_required, UserManager, userMixin
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -17,8 +18,8 @@ app = Flask(__name__)
 def items_index():
     """Return homepage."""
     """Show all items."""
-    #return render_template('index.html')
     return render_template('item_index.html', items=items.find())
+    #return render_template('index.html')
 
 # CREATE NEW
 @app.route('/new/item')
@@ -99,7 +100,6 @@ def comments_delete(comment_id):
     comment = comments.find_one({'_id': ObjectId(comment_id)})
     comments.delete_one({'_id': ObjectId(comment_id)})
     return redirect(url_for('show_item', item_id=comment.get('item_id')))
-
 
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
