@@ -4,7 +4,7 @@ from bson.objectid import ObjectId
 from datetime import datetime
 import os
 
-host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Contractor_Shopping')
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27018/Contractor_Shopping')
 client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 items = db.items

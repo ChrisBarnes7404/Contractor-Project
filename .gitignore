@@ -18,3 +18,4 @@ pip-selfcheck.json
 .vscode
 vscode/
 __pycache__/
+.__pycache__
