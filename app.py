@@ -41,13 +41,13 @@ def items_update(item_id):
     updated_item = {
         'title': request.form.get('title'),
         'description': request.form.get('description'),
-        'videos': request.form.get('videos').split(),
+        #'videos': request.form.get('videos').split(),
         'ratings': request.form.get('ratings')
     }
     items.update_one(
         {'_id': ObjectId(item_id)},
         {'$set': updated_item})
-    return redirect(url_for('items_show', item_id=item_id))
+    return redirect(url_for('show_item', item_id=item_id))
 
 # DISPLAY/SHOW
 @app.route('/items', methods=['POST'])
@@ -62,11 +62,11 @@ def items_submit():
     }
     print(item)
     item_id = items.insert_one(item).inserted_id
-    return redirect(url_for('show_items', item_id=item_id))
+    return redirect(url_for('show_item', item_id=item_id))
 
 # DISPLAY/SHOW FROM ID
 @app.route('/items/<item_id>')
-def show_items(item_id):
+def show_item(item_id):
     """Show a single item."""
     item = items.find_one({'_id': ObjectId(item_id)})
     #item_comments = comments.find({'item_id': ObjectId(item_id)})
@@ -90,14 +90,14 @@ def comments_new():
     }
     print(comment)
     comment_id = comments.insert_one(comment).inserted_id
-    return redirect(url_for('items_show', item_id=request.form.get('item_id')))
+    return redirect(url_for('show_item', item_id=request.form.get('item_id')))
 
 @app.route('/items/comments/<comment_id>', methods=['POST'])
 def comments_delete(comment_id):
     """Action to delete a comment."""
     comment = comments.find_one({'_id': ObjectId(comment_id)})
     comments.delete_one({'_id': ObjectId(comment_id)})
-    return redirect(url_for('items_show', item_id=comment.get('item_id')))
+    return redirect(url_for('show_item', item_id=comment.get('item_id')))
 
 
 if __name__ == '__main__':

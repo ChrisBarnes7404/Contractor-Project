@@ -1,4 +1,4 @@
-<!-- templates/items_show.html -->
+<!-- templates/show_item.html -->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -24,7 +24,8 @@
                     href='/items/{{ item._id }}/edit'>Edit</a></button>
 
             <form method='POST' action='/items/{{ item._id }}/delete'>
-                <button type='submit'>Delete</button>
+                <input type='hidden' name='_method' value='DELETE'>
+                <button class='btn btn-primary' type='submit'>Delete</button>
             </form>
         </div>
         <hr>
