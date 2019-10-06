@@ -15,6 +15,13 @@
         <input class='form-control' id='description' type='text' name='description' value='{{ item.description }}' />
     </div>
 
+    <!-- Price-->
+    <div class='form-group'>
+        <label for='price'>Price</label><br>
+        <input type="number" class="currency" min="0.01" max="2500.00" value="25.00" />
+        <!-- <input class='form-control' id='price' type='text' name='ratings' value='{{ item.price }}' /> -->
+    </div>
+
     <!-- DESCRIPTION
     <div class='form-group'>
         <label for='item-videos'>Videos</label><br />
@@ -26,7 +33,7 @@
     <!-- RATINGS -->
     <div class='form-group'>
         <label for='ratings'>Ratings</label>
-        <select class='form-control' name="ratings">
+        <select class='form-control' id='ratings' name="ratings" value='{{ item.ratings }}'>
             <option value="☆☆☆☆☆ 0">☆☆☆☆☆ 0</option>
             <option value="⭐☆☆☆☆ 1">⭐☆☆☆☆ 1</option>
             <option value="⭐⭐☆☆☆ 2">⭐⭐☆☆☆ 2</option>

@@ -10,6 +10,7 @@
             <p class='text-muted'>Created on {{ item.created_at.strftime('%A, %d %B, %Y') }}
             at {{ item.created_at.strftime('%I:%M %p') }}</p>
         {% endif %}
+        <p>{{ item.price }} </p>
         <small>{{ item.ratings }}</small>
         <h2>{{ item.description }}</h2>
         <!-- {% for video in item.videos %}
@@ -20,14 +21,12 @@
         </div>
         {% endfor %} -->
         <div class="form-group">
-            <button class='btn btn-primary'><a style="color: white"
-                    href='/items/{{ item._id }}/edit'>Edit</a></button>
-
-            <form method='POST' action='/items/{{ item._id }}/delete'>
-                <input type='hidden' name='_method' value='DELETE'>
-                <button class='btn btn-primary' type='submit'>Delete</button>
-            </form>
+            <button class='btn btn-primary'><a style="color: white" href='/items/{{ item._id }}/edit'>Edit</a></button>
         </div>
+        <form method='POST' action='/items/{{ item._id }}/delete'>
+            <input type='hidden' name='_method' value='DELETE'>
+            <button class='btn btn-primary' type='submit'>Delete</button>
+        </form>
         <hr>
 
     </div>
