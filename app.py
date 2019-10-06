@@ -18,14 +18,36 @@ def items_index():
     """Return homepage."""
     """Show all items."""
     #return render_template('index.html')
-    return render_template('index.html', items=items.find())
+    return render_template('item_index.html', items=items.find())
 
 # CREATE NEW
-@app.route('/item/new')
+@app.route('/new/item')
 def items_new():
     """Create a new item."""
 #    return render_template('new_item.html')
     return render_template('new_item.html', item={}, title='New Item')
+
+# EDIT
+@app.route('/items/<item_id>/edit')
+def items_edit(item_id):
+    """Show the edit form for a item."""
+    item = items.find_one({'_id': ObjectId(item_id)})
+    return render_template('items_edit.html', item=item, title='Edit item')
+
+# UPDATE
+@app.route('/items/<item_id>', methods=['POST'])
+def items_update(item_id):
+    """Submit an edited item."""
+    updated_item = {
+        'title': request.form.get('title'),
+        'description': request.form.get('description'),
+        'videos': request.form.get('videos').split(),
+        'ratings': request.form.get('ratings')
+    }
+    items.update_one(
+        {'_id': ObjectId(item_id)},
+        {'$set': updated_item})
+    return redirect(url_for('items_show', item_id=item_id))
 
 # DISPLAY/SHOW
 @app.route('/items', methods=['POST'])
@@ -47,5 +69,36 @@ def items_submit():
 def show_items(item_id):
     """Show a single item."""
     item = items.find_one({'_id': ObjectId(item_id)})
-    item_comments = comments.find({'item_id': ObjectId(item_id)})
-    return render_template('show_item.html', item=item, comments=item_comments)
+    #item_comments = comments.find({'item_id': ObjectId(item_id)})
+   # return render_template('show_item.html', item=item, comments=item_comments)
+    return render_template('show_item.html', item=item)
+
+@app.route('/items/<item_id>/delete', methods=['POST'])
+def items_delete(item_id):
+    """Delete one item."""
+    items.delete_one({'_id': ObjectId(item_id)})
+    return redirect(url_for('items_index'))
+
+########## COMMENT ROUTES ##########
+@app.route('/items/comments', methods=['POST'])
+def comments_new():
+    """Submit a new comment."""
+    comment = {
+        'title': request.form.get('title'),
+        'content': request.form.get('content'),
+        'item_id': ObjectId(request.form.get('item_id'))
+    }
+    print(comment)
+    comment_id = comments.insert_one(comment).inserted_id
+    return redirect(url_for('items_show', item_id=request.form.get('item_id')))
+
+@app.route('/items/comments/<comment_id>', methods=['POST'])
+def comments_delete(comment_id):
+    """Action to delete a comment."""
+    comment = comments.find_one({'_id': ObjectId(comment_id)})
+    comments.delete_one({'_id': ObjectId(comment_id)})
+    return redirect(url_for('items_show', item_id=comment.get('item_id')))
+
+
+if __name__ == '__main__':
+  app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
