@@ -2,21 +2,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class='row'>
-    <div class='col-sm-6 col-sm-offset-3'>
-        <form method='POST' action='/items/{{item._id}}'>
-            <input type='hidden' name='_method' value='PUT' />
-            {% include 'partials/item_form.html' %}
-            <!-- BUTTON -->
-            <div class='form-group'>
-                <button class='btn btn-primary' type='submit'>Save item</button>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="window.location.href='/items/{{item._id}}'">Cancel</button>
-            </div>
-        </form>
+<div class='col-sm-6 col-sm-offset-3'>
+    <form method='POST' action='/items/{{item._id}}'>
+        <input type='hidden' name='_method' value='PUT' />
+        {% include 'partials/item_form.html' %}
+        <!-- Submit Button  -->
+        <button class='btn btn-primary' type='submit'>Save item</button>
+    </form>
+    <!-- BUTTON -->
+    <div class="row">
+        <!-- Cancel Button  -->
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/items/{{item._id}}'">Cancel</button>
+        <!-- Delete Button -->
         <form method='POST' action='/items/{{ item._id }}/delete'>
-            <input type='hidden' name='_method' value='DELETE'>
+            <input type='hidden' name='_method' value='DELETE' />
             <button class='btn btn-primary' type='submit'>Delete</button>
         </form>
     </div>

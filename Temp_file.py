@@ -46,3 +46,25 @@ class User(db.Document, UserMixin):
 
 # Setup Flask-User and specify the User data-model
 user_manager = UserManager(app, db, User)
+
+
+########## COMMENT ROUTES ##########
+@app.route('/items/comments', methods=['POST'])
+def comments_new():
+    """Submit a new comment."""
+    comment = {
+        'title': request.form.get('title'),
+        'content': request.form.get('content'),
+        'item_id': ObjectId(request.form.get('item_id'))
+    }
+    print(comment)
+    comment_id = comments.insert_one(comment).inserted_id
+    return redirect(url_for('show_item', item_id=request.form.get('item_id')))
+
+
+@app.route('/items/comments/<comment_id>', methods=['POST'])
+def comments_delete(comment_id):
+    """Action to delete a comment."""
+    comment = comments.find_one({'_id': ObjectId(comment_id)})
+    comments.delete_one({'_id': ObjectId(comment_id)})
+    return redirect(url_for('show_item', item_id=comment.get('item_id')))
