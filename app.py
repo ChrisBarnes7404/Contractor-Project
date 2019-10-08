@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-#from flask_user import login_required, UserManager, UserMixin
+from flask_user import login_required, UserManager, UserMixin
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -20,7 +20,8 @@ app = Flask(__name__)
 @app.route('/')
 def items_index():
     """Show all items via the Home page which is accessible to anyone."""
-    return render_template('item_index.html', items=items.find())
+    return render_template('visitor.html')
+    #return render_template('item_index.html', items=items.find())
 
 # CREATE NEW
 @app.route('/new/item')
